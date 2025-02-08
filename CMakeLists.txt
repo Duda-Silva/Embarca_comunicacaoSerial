@@ -34,8 +34,12 @@ project(Embarca_comunicacaoSerial C CXX ASM)
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
-
-add_executable(Embarca_comunicacaoSerial Embarca_comunicacaoSerial.c )
+add_executable(Embarca_comunicacaoSerial 
+                Embarca_comunicacaoSerial.c 
+                src/serial.c
+                src/led_control.c
+                src/button_interaction.c
+                src/display_ssd1306.c)
 
 pico_set_program_name(Embarca_comunicacaoSerial "Embarca_comunicacaoSerial")
 pico_set_program_version(Embarca_comunicacaoSerial "0.1")
@@ -55,8 +59,10 @@ target_include_directories(Embarca_comunicacaoSerial PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(Embarca_comunicacaoSerial 
-        
-        )
+        hardware_i2c
+        hardware_pwm
+        hardware_irq
+)
 
 pico_add_extra_outputs(Embarca_comunicacaoSerial)
 
