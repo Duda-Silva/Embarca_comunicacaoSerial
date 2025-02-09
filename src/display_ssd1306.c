@@ -6,19 +6,22 @@
 
 #define UART_ID uart0
 #define BAUD_RATE 115200
-#define UART_TX_PIN 0
-#define UART_RX_PIN 1
+#define UART_TX_PIN 14
+#define UART_RX_PIN 15
 
+// Função para enviar um comando ao display via UART
 void uart_write_command(uint8_t command) {
     uart_putc_raw(UART_ID, command);
 }
 
+// Função para enviar dados ao display via UART
 void uart_write_data(uint8_t *data, size_t len) {
     for (size_t i = 0; i < len; i++) {
         uart_putc_raw(UART_ID, data[i]);
     }
 }
 
+// Função para inicializar o display SSD1306
 void init_display() {
     // Inicialize a UART aqui
     uart_init(UART_ID, BAUD_RATE);
@@ -54,6 +57,7 @@ void init_display() {
     uart_write_command(0xAF); // Display ON
 }
 
+// Função para exibir um caractere no display SSD1306
 void display_char_on_ssd1306(char c) {
     const uint8_t *bitmap;
     if (c >= 'A' && c <= 'Z') {
@@ -68,6 +72,7 @@ void display_char_on_ssd1306(char c) {
     uart_write_data((uint8_t *)bitmap, 5);
 }
 
+// Função para exibir uma mensagem no display SSD1306
 void display_message_on_ssd1306(const char* message) {
     while (*message) {
         display_char_on_ssd1306(*message++);

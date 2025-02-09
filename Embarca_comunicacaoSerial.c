@@ -16,7 +16,7 @@ int main(){
     while (true) {
         handle_serial_input();
         handle_button_a();
-        handle_button_b();
+        //handle_button_b();
         sleep_ms(100);
     }
 }
